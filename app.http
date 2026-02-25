@@ -127,3 +127,129 @@ Content-Type: image/png
 # @name DeletePlant
 DELETE {{BaseUrl}}/plants/{{plantId}}
 Content-Type: application/json
+
+## Profile
+## ===========================================
+
+### Mengambil profil pengembang
+# @name GetProfile
+GET {{BaseUrl}}/profile
+Content-Type: application/json
+
+### Mengambil foto profil
+# @name GetProfilePhoto
+GET {{BaseUrl}}/profile/photo
+Content-Type: application/json
+
+
+## Animals
+## ===========================================
+
+### Mengambil semua data hewan
+# @name GetAllAnimals
+GET {{BaseUrl}}/animals?search=
+Content-Type: application/json
+
+#> {%
+#    client.global.set("animalId", response.body.data.animals[0].id);
+#    console.log(client.global.get("animalId"))
+#%}
+
+### Menambahkan data hewan baru
+# @name PostAnimals
+POST {{BaseUrl}}/animals
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Harimau Sumatra
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Harimau Sumatra adalah subspesies harimau yang habitat aslinya di pulau Sumatra.
+--WebAppBoundary
+Content-Disposition: form-data; name="habitat"
+
+Hutan Hujan Tropis
+--WebAppBoundary
+Content-Disposition: form-data; name="makananFavorit"
+
+Daging (Karnivora)
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+> {%
+    client.global.set("animalId", response.body.data.animalId);
+    console.log(client.global.get("animalId"))
+%}
+
+### Mengambil data hewan berdasarkan id-nya
+# @name GetAnimalById
+GET {{BaseUrl}}/animals/{{animalId}}
+Content-Type: application/json
+
+### Melihat gambar hewan
+# @name GetAnimalImageById
+GET {{BaseUrl}}/animals/{{animalId}}/image
+Content-Type: application/json
+
+### Mengubah hanya data hewan berdasarkan id-nya (tanpa gambar)
+# @name PutAnimalOnlyData
+PUT {{BaseUrl}}/animals/{{animalId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Harimau Update
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Pembaruan deskripsi untuk Harimau Sumatra yang terancam punah.
+--WebAppBoundary
+Content-Disposition: form-data; name="habitat"
+
+Hutan Lindung
+--WebAppBoundary
+Content-Disposition: form-data; name="makananFavorit"
+
+Daging Rusa
+--WebAppBoundary--
+
+### Mengubah gambar dan data hewan berdasarkan id-nya
+# @name PutAnimal
+PUT {{BaseUrl}}/animals/{{animalId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Harimau Sumatra
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Harimau Sumatra memiliki ciri loreng yang lebih tipis.
+--WebAppBoundary
+Content-Disposition: form-data; name="habitat"
+
+Hutan Sumatra
+--WebAppBoundary
+Content-Disposition: form-data; name="makananFavorit"
+
+Daging
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+### Menghapus data hewan berdasarkan id-nya
+# @name DeleteAnimal
+DELETE {{BaseUrl}}/animals/{{animalId}}
+Content-Type: application/json
